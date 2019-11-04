@@ -1,14 +1,18 @@
 //Business Logic
 function TaskList(){
-
-  this.totalTasks = []
-
+  this.totalTasks = [],
+  this.currentId = 0
 }
 
 TaskList.prototype.addTask = function(newTask) {
+  newTask.taskId = this.assignId();
   this.totalTasks.push(newTask);
 }
 
+TaskList.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
+}
 
 function NewTask(taskDec, dueDate, who, taskType){
   this.taskDec = taskDec,
@@ -17,7 +21,14 @@ function NewTask(taskDec, dueDate, who, taskType){
   this.taskType = taskType
 };
 
+var nextTask = new TaskList();
 
+// function clicked(){
+//   $("#li").on("click","li",function() {
+//    $(this).remove();
+//  });
+//
+// };
 
 // var nextTask = new TaskList();
 // var test = new NewTask("fun with friends", "tomorrow", "steve", "personal");
@@ -37,17 +48,18 @@ function NewTask(taskDec, dueDate, who, taskType){
 
 $(document).ready(function(){
   $("#toDo").submit(function(event){
+
     var taskName = $("#taskName").val();
     var dueDate = $("#dueDate").val();
     var who = $("#who").val();
     var type = $("#type").val();
-    var nextTask = new TaskList();
+
     var nextTask2 = new NewTask(taskName, dueDate, who, type);
 
     nextTask.addTask(nextTask2);
-    $("#to-do").append("Type:" + nextTask.totalTasks[0].type + "Task:"+ nextTask.totalTasks[0].taskDec + "For" + nextTask.totalTasks[0].who + "Due By:" +nextTask.totalTasks[0].dueDate);
+    $("#to-do").append(`<li> <strong>Type: </strong> ${nextTask.totalTasks[0].taskType}   <strong>Task: </strong>  ${nextTask.totalTasks[0].taskDec} <strong>  For: </strong>  ${nextTask.totalTasks[0].who} <strong>  Due By: </strong> ${nextTask.totalTasks[0].dueDate} <button  id="li" onclick="clicked()"> Delete </button> <button> Mark Completed </button></li>`);
 
-    console.log(nextTask.totalTasks[0].taskDec);
+    console.log(nextTask.totalTasks);
 
 
 
