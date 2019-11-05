@@ -23,19 +23,11 @@ function NewTask(taskDec, dueDate, who, taskType){
 
 var nextTask = new TaskList();
 
-// function clicked(){
-//   $("#li").on("click","li",function() {
-//    $(this).remove();
-//  });
-//
-// };
+function clicked(){
+  var fired_button = $(".items").val();
+  console.log(fired_button);
 
-// var nextTask = new TaskList();
-// var test = new NewTask("fun with friends", "tomorrow", "steve", "personal");
-//
-// nextTask.addTask(test);
-
-// console.log(nextTask.totalTasks);
+};
 
 // Button to add task - Task Name, Due date, Who needs to complete it, Type of task (work, school or home)
 // Button to delete task - different button for each task
@@ -57,9 +49,11 @@ $(document).ready(function(){
     var nextTask2 = new NewTask(taskName, dueDate, who, type);
 
     nextTask.addTask(nextTask2);
-    $("#to-do").append(`<li> <strong>Type: </strong> ${nextTask.totalTasks[0].taskType}   <strong>Task: </strong>  ${nextTask.totalTasks[0].taskDec} <strong>  For: </strong>  ${nextTask.totalTasks[0].who} <strong>  Due By: </strong> ${nextTask.totalTasks[0].dueDate} <button  id="li" onclick="clicked()"> Delete </button> <button> Mark Completed </button></li>`);
+    var newI = nextTask.totalTasks.length - 1;
+    var objId =  nextTask.totalTasks[newI].taskId;
+    $("#to-do").append(`<li> <strong>Type: </strong> ${nextTask.totalTasks[newI].taskType}   <strong>Task: </strong>  ${nextTask.totalTasks[newI].taskDec} <strong>  For: </strong>  ${nextTask.totalTasks[newI].who} <strong>  Due By: </strong> ${nextTask.totalTasks[newI].dueDate} <button class = "items" value = "objId" onclick="clicked()"> Delete </button> <button> Mark Completed </button></li>`);
 
-    console.log(nextTask.totalTasks);
+    console.log(objId);
 
 
 
@@ -71,3 +65,5 @@ $(document).ready(function(){
 
 
 });
+
+// Setting objId to the ID value within the object. Need to set the value of the button to that variable, because it will change for every list item
